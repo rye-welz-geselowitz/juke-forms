@@ -10,9 +10,6 @@ juke.factory('SongFactory', function ($http) {
     	return $http.get('/api/songs')
     	.then(function(response){
     		var songs=response.data;
-    		// songs.forEach(function(song){
-   			// 	song.audioUrl = '/api/songs/' + song.id + '/audio';
-   			// })
     		return songs;
     	})
     },
@@ -20,16 +17,14 @@ juke.factory('SongFactory', function ($http) {
     	return $http.post('/api/playlists/'+playlistId+'/songs',{id:songId})
     	.then(function(response){
     		var song=response.data;
-    		console.log(song);
     		song.audioUrl = '/api/songs/' + song.id + '/audio';
-    		// var song=response.data;
-    		// song=this.convert(song);
-    		// return song
-    		console.log(song);
     		return song;
     	})
-
+    },
+    removeSong:function(playlistId,songId){
+      return $http.delete('/api/playlists/'+playlistId+'/songs/'+songId);
     }
+
   };
 
 });
